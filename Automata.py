@@ -4,7 +4,7 @@ from ImageGenerate import createimage, create_gif
 from Creatures import creatures
 '''
 A cellular automata is displayed using a grid. 
-The contents of the grid are defined from iteration to iteration using rules. 
+The contents of the grid are defined from iteration tjo iteration using rules. 
 The Automoata class takes a x_size and a y_size (these get flipped in the final product) 
 It also takes a rule function. There is a default norule function that does nothing, but other useful rules can be found in Rules.py
 It takes a function that sets up the grid. There is a default rule called default_setup, but more setups can be found and defined in Rules.py
@@ -51,12 +51,12 @@ class Automata:
             self.__grid = self.__rule(self.__grid, self.__par)
 
 # The print function creates and shows an image of the current automata grid
-    def print(self):
-        createimage(self.__grid, self.__par)
+    def print(self, name = 'file.jpg'):
+        createimage(self.__grid, self.__par, name)
 
 # This function creates and saves a gif of the current automata (You may need to zoom in on it)
-    def print_movie(self, name = 'file.gif'):
-        create_gif(self.__history, name)
+    def print_movie(self, speed = .2, name = 'file.gif'):
+        create_gif(self.__history, speed, name)
 
 
 # Some example code (a main function will be developed later)
@@ -66,7 +66,7 @@ class Automata:
 #    aut.update_automata(times = 1)
 #    aut.print()
 
-aut = Automata(rule = conway, x_size= 80, y_size= 80, par='23/3', setup = setup_conway, setup_params=creatures['F-pentomino'])
-aut.setup()
-aut.update_automata(times=1500)
-aut.print_movie('penton2.gif')
+#aut = Automata(rule = conway, x_size= 80, y_size= 80, par='23/3', setup = setup_conway, setup_params=creatures['F-pentomino'])
+#aut.setup()
+#aut.update_automata(times=1500)
+#aut.print_movie('penton2.gif')

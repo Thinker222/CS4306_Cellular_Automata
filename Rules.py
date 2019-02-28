@@ -42,8 +42,24 @@ def wolframgetindex(arr, row, col):
     up = arr[row - 1][col]
     if col + 1 < arr.shape[1]:
         up_right = arr[row - 1][col + 1]
-    num = 7 - (int)((1 * up_left) + (2 * up) + (4 * up_right))
-    return num
+    num = -1
+    if up_left == 1 and up == 1 and up_right == 1:
+        num = 0
+    elif up_left == 1 and up == 1 and up_right == 0:
+        num = 1
+    elif up_left == 1 and up == 0 and up_right == 1:
+        num = 2
+    elif up_left == 1 and up == 0 and up_right == 0:
+        num = 3
+    elif up_left == 0 and up == 1 and up_right == 1:
+        num = 4
+    elif up_left == 0 and up == 1 and up_right == 0:
+        num = 5
+    elif up_left == 0 and up == 0 and up_right == 1:
+        num = 6
+    else:
+        num = 7
+    return  num
 
 # Conway takes a rule as a string. The concatenated numbers before the '/' represent
 # the survival numbers, and the numbers after the '/' represent the birth numbers.
