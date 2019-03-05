@@ -26,17 +26,21 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--Type", help="Use conway or wolfram", nargs='?', default="wolfram")
     parser.add_argument("--Par", help="For wolfram, type in a number betweeen 0 and 255 inclusive. For," +
-    "Conway type in the survive numbers a forward slash, and the birth numbers with no spaces", nargs='?', default=30)
+    "Conway type in the survive numbers a forward slash, and the birth numbers with no spaces e.g. 23/3", nargs='?', default=30)
     parser.add_argument("--Size", help="Sets the dimensions of the automata; the horizontal will be twice the size of the input", nargs='?', default=100)
     parser.add_argument("--Cheat", help="Only for wolfram; creates faster output but does not follow the algorithm perfectly", nargs='?', default=False)
     parser.add_argument("--SaveFile", help="Save file name; don't add .jpg or .gif; the file extensions will be appended automatically", nargs='?', default="out")
-    parser.add_argument("--Times", help="Number of iterations in the automata", nargs='?', default=1)
+    parser.add_argument("--Times", help="Number of iterations in the automata", nargs='?', default=0)
     parser.add_argument("--Speed", help="Rate of video for conway", default=.2)
     parser.add_argument("--Creature", help="For conway only, type in the name of a creature. Here are all the creatures\n" + str(creatures.keys()), nargs='?',default='square')
     args = parser.parse_args()
     args.Type = args.Type.lower()
     args.Size = int(args.Size)
     if args.Type == "conway":
+        if(type(args.Par) == int):
+            args.Par = '23/3'
+        if(args.Times == 0):
+            args.Times = 50
         aut = Automata(x_size = args.Size, y_size = args.Size, par = args.Par, rule= conway,
                        setup = setup_conway, setup_params=creatures[args.Creature])
         aut.setup()
@@ -46,7 +50,8 @@ def main():
         print('Done!')
     elif args.Type == "wolfram":
         aut = Automata(x_size=args.Size, y_size=args.Size * 2, par = (int(args.Par), bool(args.Cheat)), rule = wolfram)
-        print(args.Cheat)
+        if(args.Times == 0):
+            args.Times = 25
         aut.setup()
         if (args.Cheat == False):
             update_with_commentary(aut, int(args.Times))
