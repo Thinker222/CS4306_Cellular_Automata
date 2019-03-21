@@ -14,6 +14,7 @@ def wolfram(arr, rule=(1,False)):
     # and create a usable output faster in O(n^2) time instead of O(n^3) time -> n dim X n Dim X n Dim as opposed to just
     # n Dim X nDim.
     cheat = rule[1]
+    # How to get string binary representation of integer: https://stackoverflow.com/questions/699866/python-int-to-binary
     rule_convert = '{0:08b}'.format(actual_rule)
     new_arr = np.zeros(arr.shape)
     new_arr[0] = arr[0]
@@ -112,12 +113,13 @@ def apply_conway(arr, new_arr, survive, birth):
                     down_right = arr[row + 1][col + 1]
                     right = arr[row][col + 1]
             total_neighbors = up_left + up + up_right + right + down_right + down + down_left + left
-            if(total_neighbors > 0):
-                stuf = 2
+            # If the neighbor number is a birth number, and the cell is not alive
             if int(total_neighbors) in birth and arr[row][col] != 1:
                 new_arr[row][col] = 1
+            # If the neighbor number is a survive number, and the cell is alive
             elif int(total_neighbors) in survive:
                 new_arr[row][col] = arr[row][col]
+            # The cell dies or remains dead
             else:
                 new_arr[row][col] = 0
 

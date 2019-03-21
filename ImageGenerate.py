@@ -4,6 +4,9 @@ import sys
 import imageio
 
 # Creates and displays an image of the automata
+# How Image works https://pillow.readthedocs.io/en/stable/reference/Image.html
+
+
 def createimage(arr, rule, name = 'file'):
     arr = np.flip(arr, axis=1).T
     sh = arr.shape
@@ -21,6 +24,12 @@ def createimage(arr, rule, name = 'file'):
 # Creates and displays a gif of the automata
 # You can change the duration to make the gif go faster or slower
 # 1 or 2 for analysis; .2 to get a fast movie
+# How to create gif in python https://imageio.readthedocs.io/en/latest/userapi.html?highlight=mimwrite (originally
+#  found how to do this stack overflow post, but I could not find the post)
+# Some of the args that are needed for this function:
+#  https://imageio.readthedocs.io/en/stable/format_gif-pil.html#gif-pil
+
+
 def create_gif(history, speed = .2, file = 'name.gif'):
     images = []
     for arr in history:

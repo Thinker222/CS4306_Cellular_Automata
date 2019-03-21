@@ -7,7 +7,7 @@ from Creatures import creatures
 # https://stackoverflow.com/questions/4480075/argparse-optional-positional-arguments
 import argparse
 
-
+# This is for detailed output
 def update_with_commentary(aut, num):
     step = num // 100
     total = num
@@ -23,8 +23,9 @@ def update_with_commentary(aut, num):
     print(str(count) + '% Complete')
 
 def main():
+    # How to use argparse: https://www.pythonforbeginners.com/argparse/argparse-tutorial
     parser = argparse.ArgumentParser()
-    parser.add_argument("--Type", help="Use conway or wolfram", nargs='?', default="wolfram")
+    parser.add_argument("--Type", help="Use conway or wolfram", nargs='?', default="none")
     parser.add_argument("--Par", help="For wolfram, type in a number betweeen 0 and 255 inclusive. For," +
     "Conway type in the survive numbers a forward slash, and the birth numbers with no spaces e.g. 23/3", nargs='?', default=30)
     parser.add_argument("--Size", help="Sets the dimensions of the automata; the horizontal will be twice the size of the input", nargs='?', default=100)
@@ -51,7 +52,7 @@ def main():
     elif args.Type == "wolfram":
         aut = Automata(x_size=args.Size, y_size=args.Size * 2, par = (int(args.Par), bool(args.Cheat)), rule = wolfram)
         if(args.Times == 0):
-            args.Times = 25
+            args.Times = 50
         aut.setup()
         if (args.Cheat == False):
             update_with_commentary(aut, int(args.Times))
@@ -61,8 +62,37 @@ def main():
         aut.print(args.SaveFile + '.jpg')
         print('Done!')
     else:
-        print(args.Type)
-        print("The type must be either wolfram or conway")
+        args.Size = 100
+        x = input('Invalid input; would you like to get some samples? y or n?')
+        x = x.lower()
+        if x == 'y' or x == 'yes':
+            print('Doing wolfram rule 90')
+            aut = Automata(x_size=args.Size, y_size=args.Size * 2, par = (90,True), rule = wolfram)
+            aut.setup()
+            aut.update_automata()
+            aut.print('Rule_ninety.jpg')
+            print('Saving to Rule_ninety.jpg')
+            print('Doing wolfram rule 45')
+            aut = Automata(x_size=args.Size, y_size=args.Size * 2, par=(45, True), rule=wolfram)
+            aut.setup()
+            aut.update_automata()
+            aut.print('Rule_forty-five.jpg')
+            print('Saving to Rule_forty-five.jpg')
+            print('Doing rule 23/3 glider')
+            aut = Automata(x_size=args.Size, y_size=args.Size, par='23/3', rule=conway,
+                           setup=setup_conway, setup_params=creatures['glider'])
+            aut.setup()
+            update_with_commentary(aut, 30)
+            aut.print_movie(speed = .2, name='glider.gif')
+            print('Saving to glider.gif')
+            print('Doing rule 23/36 replicator')
+            aut = Automata(x_size=args.Size, y_size=args.Size, par='23/36', rule=conway,
+                           setup=setup_conway, setup_params=creatures['replicator'])
+            aut.setup()
+            update_with_commentary(aut, 100)
+            aut.print_movie(speed=.2, name='replicator.gif')
+            print('Saving to replicator.gif')
+
 
 if __name__ == "__main__":
     main()
