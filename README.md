@@ -1,9 +1,9 @@
-To run the code, use these command line arguments:
- python main.py -h for help.
-An example of Wolfram:
-python main.py --Type=Wolfram --Par=30 --SaveFile=out
-An example of Conway:
-python  main.py --Type=Conway --Par=23/3 --SaveFile=out --Creature=glider --Speed=.2
+To run the code, use these command line arguments:\n
+ python main.py -h for help.\n
+An example of Wolfram:\n
+python main.py --Type=Wolfram --Par=30 --SaveFile=out\n
+An example of Conway:\n
+python  main.py --Type=Conway --Par=23/3 --SaveFile=out --Creature=glider --Speed=.2\n
 The output should look like this:
 0% Complete
 5% Complete
