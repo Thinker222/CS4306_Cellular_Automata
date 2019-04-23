@@ -1,6 +1,6 @@
 <h2><b> Installation </b></h2><br>
 To install, (assuming that python3 is installed through anaconda or another platform) <br>
-run pip.exe and run pip.exe -r requirements.txt<br>
+run pip.exe install -r requirements.txt<br>
 
 <h2><b> Using the code </b></h2><br>
 To run the code, use these command line arguments:<br>
